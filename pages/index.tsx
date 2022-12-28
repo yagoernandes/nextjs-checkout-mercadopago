@@ -1,11 +1,37 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
+import mercadopago from 'mercadopago'
+import useMercadoPago from '../lib/MercadoPago'
+import { useEffect } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+export default function Home(props: any) {
 
-export default function Home() {
+  const mercadopago = useMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY || '', {
+    locale: 'pt-BR'
+  });
+
+  useEffect(() => {
+    if (mercadopago) {
+      mercadopago.checkout({
+        preference: {
+          id: props.preference_id
+        },
+        render: {
+          container: '.checkout-container',
+          label: 'Pagar',
+        }
+      })
+    }
+    return () => {
+      const buttonContainer = document.querySelector('.checkout-container')
+      const button = buttonContainer?.lastElementChild
+
+      if(buttonContainer && button){
+        buttonContainer.removeChild(button)
+      }
+    }
+  }, [mercadopago])
+
   return (
     <>
       <Head>
@@ -15,109 +41,44 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+        <code className={styles.code}>Para prosseguir com o checkout clique em pagar</code>
+        <div className="checkout-container" />
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  // Adicione as credenciais
+  mercadopago.configure({
+    access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN || '',
+  });
+
+  // Cria um objeto de preferência
+  let preference = {
+    items: [
+      {
+        title: 'Meu produto',
+        unit_price: 100,
+        quantity: 1,
+      }
+    ]
+  };
+
+  // mercadopago.preferences.create(preference)
+  //   .then(function (response) {
+  //     // Este valor substituirá a string "<%= global.id %>" no seu HTML
+  //     global.id = response.body.id;
+  //   }).catch(function (error) {
+  //     console.log(error);
+  //   });
+
+  const response = await mercadopago.preferences.create(preference)
+
+  return {
+    props: {
+      asd: 123,
+      preference_id: response.body.id
+    },
+  }
 }

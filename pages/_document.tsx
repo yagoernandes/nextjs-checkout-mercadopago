@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
         <Main />
         <NextScript />
       </body>

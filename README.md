@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## MercadoPago
+[Crie as credenciais aqui](https://www.mercadopago.com.br/developers/panel)
+
+[Integre com o Checkout Pro](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/integrate-checkout-pro#editor_2)
+[Teste de integração](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/test-integration)
+
 ## Getting Started
 
 First, run the development server:
