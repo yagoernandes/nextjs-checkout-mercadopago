@@ -19,6 +19,10 @@ export default function Home(props: any) {
         render: {
           container: '.checkout-container',
           label: 'Pagar',
+        },
+        theme: {
+          headerColor: '#c0392b',
+          elementsColor: '#c0392b'
         }
       })
     }
@@ -26,7 +30,7 @@ export default function Home(props: any) {
       const buttonContainer = document.querySelector('.checkout-container')
       const button = buttonContainer?.lastElementChild
 
-      if(buttonContainer && button){
+      if (buttonContainer && button) {
         buttonContainer.removeChild(button)
       }
     }
@@ -52,33 +56,57 @@ export async function getServerSideProps(context: any) {
   // Adicione as credenciais
   mercadopago.configure({
     access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN || '',
+
   });
 
   // Cria um objeto de preferência
   let preference = {
     items: [
       {
-        title: 'Meu produto',
-        unit_price: 100,
+        id: '1234',
+        title: 'Lightweight Paper Table',
+        description: 'Inspired by the classic foldable art of origami',
+        category_id: 'home',
         quantity: 1,
+        currency_id: 'BRL',
+        unit_price: 55.41
       }
-    ]
+    ],
+    payer: {
+      name: "Joao",
+      surname: "Silva",
+      email: "c6e3d57d-2f4e-45de-82e5-94ada8f5946e@email.webhook.site",
+      date_created: "2015-06-02T12:58:41.425-04:00",
+      phone: {
+        area_code: "11",
+        number: 44444444
+      },
+
+      identification: {
+        type: "CPF",
+        number: "19119119100"
+      },
+
+      address: {
+        street_name: "Street",
+        street_number: 123,
+        zip_code: "06233200"
+      }
+    },
+    back_urls: {
+      success: "http://localhost:3000/",
+      failure: "http://localhost:3000/",
+      pending: "http://localhost:3000/"
+    },
+    auto_return: "approved",
   };
 
-  // mercadopago.preferences.create(preference)
-  //   .then(function (response) {
-  //     // Este valor substituirá a string "<%= global.id %>" no seu HTML
-  //     global.id = response.body.id;
-  //   }).catch(function (error) {
-  //     console.log(error);
-  //   });
-
   const response = await mercadopago.preferences.create(preference)
-
+  const preference_id = response.body.id
   return {
     props: {
       asd: 123,
-      preference_id: response.body.id
+      preference_id: preference_id
     },
   }
 }
