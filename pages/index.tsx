@@ -43,6 +43,7 @@ export default function Home(props: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/*  */}
       <main className='flex items-center justify-center h-screen flex-col mx-auto'>
         <code>Para prosseguir com o checkout clique em pagar</code>
         <div className="checkout-container" />
