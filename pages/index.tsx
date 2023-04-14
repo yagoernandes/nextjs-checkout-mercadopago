@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import mercadopago from 'mercadopago'
 import useMercadoPago from '../lib/MercadoPago'
 import { useEffect } from 'react'
@@ -44,8 +43,8 @@ export default function Home(props: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <code className={styles.code}>Para prosseguir com o checkout clique em pagar</code>
+      <main className='flex items-center justify-center h-screen flex-col mx-auto'>
+        <code>Para prosseguir com o checkout clique em pagar</code>
         <div className="checkout-container" />
       </main>
     </>
@@ -68,8 +67,8 @@ export async function getServerSideProps(context: any) {
         description: 'Inspired by the classic foldable art of origami',
         category_id: 'home',
         quantity: 1,
-        currency_id: 'BRL',
-        unit_price: 55.41
+        currency_id: 'AR',
+        unit_price: 2000
       }
     ],
     payer: {
