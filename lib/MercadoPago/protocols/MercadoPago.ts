@@ -1,3 +1,4 @@
+// lib/MercadoPago/protocols/MercadoPago.ts
 import { GetPaymentMethod } from './getPaymentMethod';
 
 export type Mercadopago = {

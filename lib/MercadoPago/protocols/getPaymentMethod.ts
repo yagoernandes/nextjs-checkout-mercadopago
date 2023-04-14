@@ -1,3 +1,4 @@
+// lib/MercadoPago/protocols/getPaymentMethods.ts
 import { Cause } from './cause'
 
 export type GetPaymentMethod = (
