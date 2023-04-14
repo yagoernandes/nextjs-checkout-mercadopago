@@ -65,8 +65,8 @@ export async function getServerSideProps(context: any) {
     items: [
       {
         id: '1234',
-        title: 'Lightweight Paper Table',
-        description: 'Inspired by the classic foldable art of origami',
+        title: 'Curso individual',
+        description: '1 pago único del contenido elegido. Sin fecha de vencimiento',
         category_id: 'home',
         quantity: 1,
         currency_id: 'ARS',
