@@ -1,3 +1,4 @@
+// pages/index.tsx
 import Head from 'next/head'
 import mercadopago from 'mercadopago'
 import useMercadoPago from '../lib/MercadoPago'
@@ -68,30 +69,15 @@ export async function getServerSideProps(context: any) {
         description: 'Inspired by the classic foldable art of origami',
         category_id: 'home',
         quantity: 1,
-        currency_id: 'AR',
+        currency_id: 'ARS',
         unit_price: 2000
       }
     ],
     payer: {
-      name: "Joao",
-      surname: "Silva",
-      email: "c6e3d57d-2f4e-45de-82e5-94ada8f5946e@email.webhook.site",
-      date_created: "2015-06-02T12:58:41.425-04:00",
-      phone: {
-        area_code: "11",
-        number: 44444444
-      },
+      name: "TEST_USER_337141211",
+      email: "test_user_337141211@testuser.com",
+      date_created: "10/04/23",
 
-      identification: {
-        type: "CPF",
-        number: "19119119100"
-      },
-
-      address: {
-        street_name: "Street",
-        street_number: 123,
-        zip_code: "06233200"
-      }
     },
     back_urls: {
       success: "http://localhost:3000/",
