@@ -1,10 +1,10 @@
-// pages/index.tsx
+// pages/payment.tsx
 import Head from 'next/head'
 import mercadopago from 'mercadopago'
 import useMercadoPago from '../lib/MercadoPago'
 import { useEffect } from 'react'
 
-export default function Home(props: any) {
+export default function payment(props: any) {
 
   const mercadopago = useMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY || '', {
     locale: 'pt-BR'
@@ -23,6 +23,11 @@ export default function Home(props: any) {
         theme: {
           headerColor: '#c0392b',
           elementsColor: '#c0392b'
+        },
+        callback: function (response: any) {
+          if (response.status === 'approved') {
+            window.location.href = '/post';
+          }
         }
       })
     }
@@ -46,7 +51,7 @@ export default function Home(props: any) {
       </Head>
       {/*  */}
       <main className='flex items-center justify-center h-screen flex-col mx-auto'>
-        <code>Para prosseguir com o checkout clique em pagar</code>
+        <code>Desbloquea el contenido y miralo cuando quieras</code>
         <div className="checkout-container" />
       </main>
     </>
@@ -80,7 +85,7 @@ export async function getServerSideProps(context: any) {
 
     },
     back_urls: {
-      success: "http://localhost:3000/",
+      success: "http://localhost:3000/post",
       failure: "http://localhost:3000/",
       pending: "http://localhost:3000/"
     },
