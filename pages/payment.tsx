@@ -38,11 +38,20 @@ export default function payment(props: any) {
           headerColor: '#c0392b',
           elementsColor: '#c0392b'
         },
-        callback: function (response: any) {
+        callback: function (response) {
           if (response.status === 'approved') {
+            localStorage.setItem('paymentStatus', 'paid'); // Save payment status to localStorage
             window.location.href = '/post';
           }
         }
+
+        // how to retrieve local storage
+        // if (localStorage.getItem('paymentStatus') === 'paid') {
+        //   // Payment has been made
+        // } else {
+        //   // Payment has not been made
+        // }
+
       })
     }
     return () => {
