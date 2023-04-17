@@ -1,3 +1,4 @@
+// pages/index.js
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -8,11 +9,10 @@ const Index = () => {
   const [paid, setPaid] = useState(false);
 
   useEffect(() => {
-    const paymentState = getCookie("paymentState");
+    const paymentState = localStorage.getItem("paymentStatus");
     if (paymentState === "paid") {
-      setPaid(true);
-    } else {
-      router.push("/payment");
+      setCookie("paymentState", "paid", null); // Set cookie for 30 days
+      router.push("/post");
     }
   }, []);
 

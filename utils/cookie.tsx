@@ -1,3 +1,4 @@
+// utils/cookie.tsx
 export const setCookie = (name, value, maxAge = 30) => {
     const secureFlag = process.env.NODE_ENV === 'production' ? '; Secure' : '';
     document.cookie = `${name}=${value}; Max-Age=${maxAge * 24 * 60 * 60}; Path=/; HttpOnly${secureFlag}`;
