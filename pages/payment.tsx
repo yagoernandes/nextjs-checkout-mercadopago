@@ -86,7 +86,7 @@ export async function getServerSideProps(context: any) {
     },
     back_urls: {
       success: "http://localhost:3000/post",
-      failure: "http://localhost:3000/",
+      failure: "http://localhost:3000/failure",
       pending: "http://localhost:3000/"
     },
     auto_return: "approved",
