@@ -17,11 +17,13 @@ export default function payment(props: any) {
   });
 
   useEffect(() => {
-    if (window.location.search.includes("collection_status=approved")) {
-      setCookie("paymentState", "paid", null); // Set cookie for 30 days
-      router.push("/post");
+    const paymentState = localStorage.getItem('paymentStatus');
+    if (paymentState === 'paid') {
+      setCookie('paymentState', 'paid', null); // Set cookie for 30 days
+      router.push('/post');
     }
   }, []);
+  ;
 
 
   useEffect(() => {
