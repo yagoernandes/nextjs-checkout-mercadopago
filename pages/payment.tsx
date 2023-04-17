@@ -3,12 +3,26 @@ import Head from 'next/head'
 import mercadopago from 'mercadopago'
 import useMercadoPago from '../lib/MercadoPago'
 import { useEffect } from 'react'
+import { useRouter } from "next/router";
+import { setCookie } from "../utils/cookie";
+import { isNullishCoalesce } from 'typescript';
+
 
 export default function payment(props: any) {
+
+  const router = useRouter();
 
   const mercadopago = useMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY || '', {
     locale: 'pt-BR'
   });
+
+  useEffect(() => {
+    if (window.location.search.includes("collection_status=approved")) {
+      setCookie("paymentState", "paid", null); // Set cookie for 30 days
+      router.push("/post");
+    }
+  }, []);
+
 
   useEffect(() => {
     if (mercadopago) {

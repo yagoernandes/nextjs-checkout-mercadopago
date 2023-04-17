@@ -1,9 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const post = () => {
   return (
     <div className="p-10 bg-indigo-100">
+      <nav className=" shadow-lg h-[5vh] w-full">
+        <Link href="/">
+          <button className="px-6 py-4 bg-white border font-bold tex-6xl">
+            Home
+          </button>
+        </Link>
+      </nav>
       <div className="pt-20">
         <h2 className="text-4xl font-extrabold text-center mb-8 text-indigo-700">
           Titulo
